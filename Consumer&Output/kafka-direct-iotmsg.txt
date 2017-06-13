@@ -1,0 +1,96 @@
+[root@ip-172-31-10-218 ~]# more /home/ec2-user/kafka-direct-iotmsg.py
+
+# Header imports
+from __future__ import print_function
+from operator import add
+from pyspark import SparkContext, SparkConf
+
+from pyspark.streaming import StreamingContext
+from pyspark.streaming.kafka import KafkaUtils
+
+import sys
+import json
+import re
+import time
+
+conf = SparkConf()
+sc = SparkContext(appName="PythonSparkScriptExample", conf=conf)
+
+ssc = StreamingContext(sc, 2)
+
+from pyspark.sql import SQLContext
+sqlContext = SQLContext(sc)
+from pyspark.sql.functions import mean, min, max
+
+#----------- Your Code Below -----------
+
+# Inject JSON to a JSON RDD
+jsonRDD = sc.wholeTextFiles("weather_farm_conditions.log").map(lambda (k,v): v)
+js = jsonRDD.map(lambda x: re.sub(r"\s+", "", x, flags=re.UNICODE))
+
+iotmsgsRDD = sqlContext.read.json(js)
+iotmsgsRDD.registerTempTable("iotmsgsTable")
+
+print()
+print ("Information collected at " + time.strftime("%c"))
+print()
+print("*************************************")
+
+########################   TEMPERATURE  ###################################
+
+# Show data values
+sqlContext.sql("select distinct temperature from iotmsgsTable order by temperature desc").show()
+
+# Collect a List of Rows of data from the DataFrame
+temperature = sqlContext.sql("select distinct temperature from iotmsgsTable order by temperature desc")
+functionsList = temperature.select([mean('temperature'), min('temperature'), max('temperature')]).collect()
+
+# Collect max and avg temperature from Row #1 of the DataFrame
+maxTemp = functionsList[0]['max(temperature)']
+avgTemp = functionsList[0]['avg(temperature)']
+if (maxTemp > 85.0):
+  print("Temperature reached a peak of ", maxTemp)
+print()
+
+########################  SOIL TEMPERATURE  ###################################
+
+# Show data values
+sqlContext.sql("select distinct soil_temperature from iotmsgsTable order by soil_temperature desc").show()
+
+# Collect a List of Rows of data from the DataFrame
+soil_temperature = sqlContext.sql("select distinct soil_temperature from iotmsgsTable order by soil_temperature de
+sc")
+functionsList = soil_temperature.select([mean('soil_temperature'), min('soil_temperature'), max('soil_temperature'
+)]).collect()
+
+# Collect max and avg temperature from Row #1 of the DataFrame
+maxSoil_temperature = functionsList[0]['max(soil_temperature)']
+avgSoilTemp = functionsList[0]['avg(soil_temperature)']
+if (maxSoil_temperature > 30.0):
+  print("Soil temperature reached a peak of ", maxSoil_temperature)
+print()
+
+########################  HUMIDITY   ###################################
+
+# Show data values
+sqlContext.sql("select distinct humidity from iotmsgsTable order by humidity desc").show()
+
+# Collect a List of Rows of data from the DataFrame
+humidity = sqlContext.sql("select distinct humidity from iotmsgsTable order by humidity desc")
+functionsList = humidity.select([mean('humidity'), min('humidity'), max('humidity')]).collect()
+
+lowhumidity = functionsList[0]['min(humidity)']
+if (lowhumidity < 30.0):
+  print("Humidity reached a low peak of ", lowhumidity)
+print()
+
+########################  ALERTS TEMP, SOIL TEMP and HUMIDITY ###################################
+
+if (avgTemp > 30.0) and (avgSoilTemp > 10.0) and (lowhumidity < 32.0):
+  print()
+  print('***********************************')
+  print("Average Temp is:", avgTemp, " Average Soil Temp is:", avgSoilTemp," and Humidity is:",lowhumidity)
+  print()
+  print('*ALERT!* - Activate the irrigation!')
+  print('***********************************')
+print()

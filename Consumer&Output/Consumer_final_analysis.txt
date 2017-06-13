@@ -1,0 +1,95 @@
+[root@ip-172-31-10-218 ec2-user]# spark-submit --jars /home/ec2-user/spark-streaming-kafka-0-8-assembly_2.11-2.0.0-preview.jar /home/ec2-user/kafka-direct-iotmsg.py localhost:9092 iotmsgs
+
+Information collected at Tue Jun  6 02:45:47 2017
+
+*************************************
++-----------+
+|temperature|
++-----------+
+|      100.0|
+|       98.7|
+|       98.5|
+|       97.7|
+|       97.2|
+|       97.0|
+|       96.3|
+|       96.2|
+|       96.1|
+|       96.0|
+|       94.3|
+|       92.3|
+|       92.0|
+|       91.1|
+|       90.9|
+|       90.8|
+|       90.7|
+|       90.6|
+|       89.2|
+|       88.7|
++-----------+
+only showing top 20 rows
+
+Temperature reached a peak of  100.0
+
++----------------+
+|soil_temperature|
++----------------+
+|            39.8|
+|            39.6|
+|            39.2|
+|            39.1|
+|            38.9|
+|            38.8|
+|            38.7|
+|            38.3|
+|            37.9|
+|            37.7|
+|            37.4|
+|            36.6|
+|            36.4|
+|            36.3|
+|            36.2|
+|            35.5|
+|            35.4|
+|            35.3|
+|            35.0|
+|            34.8|
++----------------+
+only showing top 20 rows
+
+Soil temperature reached a peak of  39.8
+
++--------+
+|humidity|
++--------+
+|      98|
+|      97|
+|      96|
+|      94|
+|      93|
+|      91|
+|      88|
+|      87|
+|      86|
+|      85|
+|      84|
+|      82|
+|      81|
+|      80|
+|      79|
+|      77|
+|      76|
+|      74|
+|      73|
+|      66|
++--------+
+only showing top 20 rows
+
+Humidity reached a low peak of  0
+
+
+***********************************
+Average Temp is: 79.5181818182  Average Soil Temp is: 29.9192771084  and Humidity is: 0
+
+*ALERT!* - Activate the irrigation!
+***********************************

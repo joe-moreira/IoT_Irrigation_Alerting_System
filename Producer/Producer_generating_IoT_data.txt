@@ -1,0 +1,2 @@
+[root@ip-172-31-10-218 ec2-user]# /home/ec2-user/iotsimulator.py 10 | /home/ec2-user/kafka_2.11-0.10.1.0/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic iotmsgs
+OpenJDK 64-Bit Server VM warning: If the number of processors is expected to increase from one, then you should configure the number of parallel GC threads appropriately using -XX:ParallelGCThreads=N

@@ -6,10 +6,6 @@ The data is collected in real-time by the sensors:
 
 ![2017-06-13 17 02 28](https://user-images.githubusercontent.com/17622709/27093991-845a41ac-501d-11e7-904b-d62a501286b5.png)
 
-![Screenshot](27093991-845a41ac-501d-11e7-904b-d62a501286b5.png)
-
-https://user-images.githubusercontent.com/17622709/27093991-845a41ac-501d-11e7-904b-d62a501286b5.png
-
 Data pipelining:
 
 PRODUCER:
@@ -24,7 +20,7 @@ PRODUCER:
 3.	Executed the script in order to generate 100 documents. The weather_farm_conditions.log file was created for better analysis. JSON format compliance was validated on JSONLint website
 A brief output follows:
 
-https://user-images.githubusercontent.com/17622709/27093962-689bf334-501d-11e7-83a2-a23e85c37716.png
+![2017-06-13 17 02 28](https://user-images.githubusercontent.com/17622709/27093962-689bf334-501d-11e7-83a2-a23e85c37716.png)
 
 4.	The script execution consists on generating data and injecting it into a Kafka producer broker using a defined topic (here iotmsgs).
 This is the entire execution commands:
@@ -43,7 +39,7 @@ It’s important to highlight the need for using the same topic name between Pro
 
 Below is General data pipeline and process: 
 
-https://user-images.githubusercontent.com/17622709/27093980-77e416f0-501d-11e7-804d-06f576125530.png
+![2017-06-13 17 02 28](https://user-images.githubusercontent.com/17622709/27093980-77e416f0-501d-11e7-804d-06f576125530.png)
 
 CONCLUSION:
 

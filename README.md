@@ -4,6 +4,8 @@ Real-time monitoring in a rural area to control irrigation.
 Main goal: define more efficient irrigation systems that meet crops water requirements.
 The data is collected in real-time by the sensors:
 
+![Screenshot](27093991-845a41ac-501d-11e7-904b-d62a501286b5.png)
+
 https://user-images.githubusercontent.com/17622709/27093991-845a41ac-501d-11e7-904b-d62a501286b5.png
 
 Data pipelining:
